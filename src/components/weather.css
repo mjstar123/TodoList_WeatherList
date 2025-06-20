@@ -39,7 +39,7 @@
 .buttons{
   margin-left:20px;
 }
-.todobutton {
+.todobutton1 {
   width:50px;
   height:25px;
   margin-left:10px;
@@ -55,4 +55,7 @@
 }
 div h4 {
   display: inline;
+}
+.leftmargin {
+  margin-left:20px;
 }

@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import "./weather.css";
 
@@ -6,24 +6,24 @@ const fetchWeather = async (city) => {
   const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=en&appid=&units=metric`);
   if (!currentRes.ok) throw new Error(currentRes.statusText);
   const currentData = await currentRes.json();
-  return { current:currentData};
+  return { current: currentData };
 };
 const fetchForecast = async (city) => {
   const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=en&appid=&units=metric`);
   if (!forecastRes.ok) throw new Error(forecastRes.statusText);
   const forecastData = await forecastRes.json();
-  return { forecast:forecastData };
+  return { forecast: forecastData };
 }
 
 export default function Weather() {
   const [city, setCity] = useState("Seoul");
   const [inputCity, setInputCity] = useState("");
-  const [data,setData] = useState({ current: null});
+  const [data, setData] = useState({ current: null });
   const [error, setError] = useState(null);
-  const [forecast, setForecast] = useState({forecast:null});
+  const [forecast, setForecast] = useState({ forecast: null });
   const [now, setNow] = useState(new Date());
   const [showError, setShowError] = useState(false);
-  const [realname, setRealname] = useState({current: null});
+  const [realname, setRealname] = useState({ current: null });
   const [seoul, setSeoul] = useState(null);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Weather() {
 
   const loadWeather = (selectedCity) => {
     fetchWeather(selectedCity)
-      .then(result => {setData(result); setRealname(result)})
+      .then(result => { setData(result); setRealname(result) })
       .catch(err => setError(err.message));
 
     fetchForecast(selectedCity)
@@ -63,7 +63,7 @@ export default function Weather() {
   }, []);
 
   useEffect(() => {
-    if(!data.current || !forecast.forecast || !forecast.forecast.list) {
+    if (!data.current || !forecast.forecast || !forecast.forecast.list) {
       const timer = setTimeout(() => {
         setShowError(true);
       }, 3000);
@@ -71,26 +71,27 @@ export default function Weather() {
     } else {
       setShowError(false);
     }
-  },[data,forecast]);
+  }, [data, forecast]);
 
   if (!data.current || !forecast.forecast || !forecast.forecast.list) {
     return (
-      <>
+      <div className="leftmargin">
         <p>Loading...</p>
-        {showError && 
-        <>
-          <p>코드 내에서 api의 key값을 입력해주지 않았음</p>
-          <p>코드 내에서 모든 fetch()괄호 안에 MYAPI부분 입력 해주어야함(fetch는 3개 있음)</p>
-        </>
+        {showError &&
+          <>
+            <button onClick={() => window.history.back()} className='todobutton2'>Todo</button><br />
+            <p>코드 내에서 api의 key값을 입력해주지 않았음</p>
+            <p>코드 내에서 모든 fetch()괄호 안에 MYAPI부분 입력 해주어야함(fetch는 3개 있음)</p>
+          </>
         }
-      </>
+      </div>
     )
   }
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      setCity(inputCity);  
-      setInputCity("");    
+      setCity(inputCity);
+      setInputCity("");
     }
   };
 
@@ -109,7 +110,7 @@ export default function Weather() {
   const tomorrowStr1 = getDateStr(1);
   const dayAfterTomorrowStr1 = getDateStr(2);
   const thirdDayStr1 = getDateStr(3);
-  const days1 =[];
+  const days1 = [];
   days1[1] = tomorrowStr1;
   days1[2] = dayAfterTomorrowStr1;
   days1[3] = thirdDayStr1;
@@ -117,7 +118,7 @@ export default function Weather() {
   const tomorrowStr2 = getDateDisplayStr(1);
   const dayAfterTomorrowStr2 = getDateDisplayStr(2);
   const thirdDayStr2 = getDateDisplayStr(3);
-  const days2 =[];
+  const days2 = [];
   days2[1] = tomorrowStr2;
   days2[2] = dayAfterTomorrowStr2;
   days2[3] = thirdDayStr2;
@@ -131,12 +132,12 @@ export default function Weather() {
   day[2] = getForecastByDate(dayAfterTomorrowStr1);
   day[3] = getForecastByDate(thirdDayStr1);
 
-  if(error) {
+  if (error) {
     return (
       <div className='buttons'>
         <p>Error:{error}</p>
         <h4>Todo로 돌아가기</h4>
-        <button onClick={() => window.history.back()} className='todobutton'>Todo</button><br />
+        <button onClick={() => window.history.back()} className='todobutton1'>Todo</button><br />
         <h4>페이지 새로 고침</h4>
         <button onClick={() => window.location.reload()} className='weatherbutton'>날씨</button>
         <p>해당 url은 존재하지 않음</p>
@@ -145,14 +146,14 @@ export default function Weather() {
       </div>
     );
   }
-  
+
   return (
     <figure>
       <div className='weather1'>
         <div className='weather2'>
           <div className='weather3'>
             <Link to="/">Todo</Link>
-          </div>  
+          </div>
           <div>
             <input
               type="text"
@@ -162,43 +163,43 @@ export default function Weather() {
               onKeyDown={handleKeyDown}
               className='weather4'
             />
-            </div>
+          </div>
         </div>
         <div className='weather5'>
           <div>
             <p>{realname.current.name} ({realname.current.sys.country})</p>
-            <img 
-            src={`https://openweathermap.org/img/wn/${realname.current.weather?.[0]?.icon}.png`}
-            alt={realname.current.weather[0].main} 
-            className='weather6'
+            <img
+              src={`https://openweathermap.org/img/wn/${realname.current.weather?.[0]?.icon}.png`}
+              alt={realname.current.weather[0].main}
+              className='weather6'
             />
             <figcaption>
-            {realname.current.main.temp}°C - {realname.current.weather[0].description}
+              {realname.current.main.temp}°C - {realname.current.weather[0].description}
             </figcaption>
           </div>
         </div>
         <div className='weather7'>
           <div>
             <p>서울 날씨</p>
-            <img 
-            src={`https://openweathermap.org/img/wn/${seoul.weather?.[0]?.icon}.png`}
-            alt={seoul.weather[0].main}
-            className='weather8'
+            <img
+              src={`https://openweathermap.org/img/wn/${seoul.weather?.[0]?.icon}.png`}
+              alt={seoul.weather[0].main}
+              className='weather8'
             />
             <figcaption>
-            {now.toLocaleDateString()} {(now.toLocaleTimeString())} <br /> {seoul.main.temp}°C - {seoul.weather[0].description}
+              {now.toLocaleDateString()} {(now.toLocaleTimeString())} <br /> {seoul.main.temp}°C - {seoul.weather[0].description}
             </figcaption>
           </div>
         </div>
       </div>
       <div className='weather9'>
-        {[1, 2, 3].map(i => ( 
+        {[1, 2, 3].map(i => (
           <React.Fragment key={i} >
             <p>{i} 일 후 ({days2[i]}) ({realname.current.name})</p>
             <ul key={i} className='weather10'>
               {day[i].map(item => (
                 <li key={item.dt} className='weather11'>
-                  <img 
+                  <img
                     src={`https://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
                     alt={item.weather[0].main}
                   />
@@ -212,6 +213,6 @@ export default function Weather() {
         ))}
       </div>
     </figure>
-    
+
   );
 }
