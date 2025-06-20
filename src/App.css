@@ -1,0 +1,61 @@
+.parent-container {
+  display: flex;
+  margin-top:30px;
+  gap: 20px;
+}
+
+.app-container {
+  width:600px;
+  margin: 0.5rem 4rem 0;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.horizontal {
+  display:flex;
+  justify-content: space-between;
+}
+
+.weather {
+  margin-left:10px;
+}
+
+.time {
+  margin-right:10px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sort-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.sort-button {
+  font-size: 0.875rem;
+  color: #2563eb;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pic1 {
+  width:300px;
+  margin-top:140px;
+  margin-left:40px;
+}
+
+.pic2 {
+  width:300px;
+  margin-top:100px;
+}

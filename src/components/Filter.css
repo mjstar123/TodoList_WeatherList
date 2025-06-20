@@ -1,0 +1,18 @@
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-button {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #e5e7eb;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-button.selected {
+  background-color: #93c5fd;
+}
