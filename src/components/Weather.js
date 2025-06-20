@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import "./weather.css";
 
 const fetchWeather = async (city) => {
-  const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=en&appid=&units=metric`);
+  const currentRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=en&appid=MYAPI&units=metric`);
   if (!currentRes.ok) throw new Error(currentRes.statusText);
   const currentData = await currentRes.json();
   return { current: currentData };
 };
 const fetchForecast = async (city) => {
-  const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=en&appid=&units=metric`);
+  const forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=en&appid=MYAPI&units=metric`);
   if (!forecastRes.ok) throw new Error(forecastRes.statusText);
   const forecastData = await forecastRes.json();
   return { forecast: forecastData };
@@ -29,7 +29,7 @@ export default function Weather() {
   useEffect(() => {
     const fetchSeoul = async () => {
       try {
-        const resSeoul = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Seoul&lang=en&appid=&units=metric`);
+        const resSeoul = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Seoul&lang=en&appid=MYAPI&units=metric`);
         if (!resSeoul.ok) throw new Error(resSeoul.statusText);
         const seouldata = await resSeoul.json();
         setSeoul(seouldata);
